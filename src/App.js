@@ -4,17 +4,17 @@ import "./App.scss";
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
-// import Routings from "./config/Routings";
+
 import Home from "./pages/Home";
 import Catalog from "./pages/Catalog";
 import Detail from "./pages/Detail";
+import HeaderWithRouter from "./components/header/Header";
 
 function App() {
   return (
     <>
-      <Header />
+      <HeaderWithRouter />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
