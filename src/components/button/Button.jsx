@@ -1,18 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Button = () => {
+import "./button.scss";
+
+const Button = (props) => {
   return (
     <button
       className={`btn ${props.className}`}
-      onclick={props.onClick ? () => props.onClick() : null}
+      onClick={props.onClick ? () => props.onClick() : null}
     >
       {props.children}
     </button>
   );
 };
 
-const OutlinedButton = (props) => {
+export const OutlineButton = (props) => {
   return (
     <Button
       className={`btn-outline ${props.className}`}

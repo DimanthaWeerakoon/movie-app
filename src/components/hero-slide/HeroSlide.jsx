@@ -7,6 +7,9 @@ import tmdbApi, { movieType } from "../../api/tmdbApi";
 import apiConfig from "../../api/apiConfig";
 
 import "./hero-slide.scss";
+import { useNavigate } from "react-router-dom";
+import Button, { OutlineButton } from "../button/Button";
+import Modal, { ModalContent } from "../modal/Modal";
 
 const HeroSlide = () => {
   const [movieItems, setMovieItems] = useState([]);
@@ -18,7 +21,7 @@ const HeroSlide = () => {
         const response = await tmdbApi.getMoviesList(movieType.popular, {
           params,
         });
-        setMovieItems(response.results.slice(0, 10));
+        setMovieItems(response.results.slice(0, 4));
       } catch {
         console.log("error");
       }
@@ -41,10 +44,48 @@ const HeroSlide = () => {
       <Slider {...settings}>
         {movieItems.map((item, i) => (
           <div key={i}>
-            <img src={apiConfig.orignailImage(item.backdrop_path)} alt="" />
+            <HeroSlideItem
+              item={item}
+              //   className={`${isActive ? "active" : ""}`}
+            />
           </div>
         ))}
       </Slider>
+    </div>
+  );
+};
+
+const HeroSlideItem = (props) => {
+  let history = useNavigate;
+
+  const item = props.item;
+
+  const background = apiConfig.orignailImage(
+    item.backdrop_path ? item.backdrop_path : item.poser_path
+  );
+
+  return (
+    <div
+      className={`hero-silide__item ${props.className}`}
+      style={{ backgroundImage: `url(${background})` }}
+    >
+      <div className="hero-slide__item__content container">
+        <div className="hero-slide__item__content__info">
+          <h2 className="title">{item.title}</h2>
+          <div className="overview">{item.overview}</div>
+          <div className="btns">
+            <Button onClick={() => history.push("/movie/" + item.id)}>
+              Watch now
+            </Button>
+            <OutlineButton onClick={() => console.log("trailer")}>
+              Watch trailer
+            </OutlineButton>
+          </div>
+        </div>
+        <div className="hero-slide__item__content__poster">
+          <img src={apiConfig.w500Image(item.poster_path)} alt="" />
+        </div>
+      </div>
     </div>
   );
 };

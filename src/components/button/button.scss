@@ -1,4 +1,4 @@
-@use "../../scss" as *;
+@use "../../scss/" as *;
 
 button {
   cursor: pointer;
@@ -27,7 +27,7 @@ button {
   background-color: transparent;
   color: $white;
   box-shadow: unset;
-  transition: color 0.3s ease, background-color.3s ease;
+  transition: color 0.3s ease, background-color 0.3s ease;
 }
 
 .btn-outline:hover {
